@@ -9,7 +9,7 @@ Easily download your exam result PDFs directly from ans.app. This Chrome/Firefox
 To install this extension in Chrome manually, follow these steps:
 
 1. **Download the Extension:**
-   - Download the latest release `.zip` file here: `[**Download for Chrome**](https://github.com/Piter13pp/Ans-Downloader/raw/main/Extension%20-%20chrome/Ans%20Exam%20Downloader.zip`
+   - Download the latest release `.zip` file here: `[**Download for Chrome**](https://github.com/Piter13pp/Ans-Downloader/raw/main/Extension%20-%20chrome/Ans%20Exam%20Downloader.zip)`
 
 2. **Extract the Files:**
    - Unzip the downloaded file into a dedicated folder on your computer (e.g., `ans-downloader-extension`).
