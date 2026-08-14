@@ -1,47 +1,44 @@
 (function downloadAnsPdf() {
     console.log("Starting ANS PDF extractor...");
 
-    // 1. Find the element containing the file name
-    const fileNameEl = document.getElementById('fileNameField');
-    if (!fileNameEl) {
-        console.error("Error: Could not find the element with id 'fileNameField'. Make sure you are on the correct tab.");
+    // Find the active tab inside the scroller that has a data-url attribute
+    const activeTab = document.querySelector('.mdc-tab-scroller__scroll-content .mdc-tab--active[data-url]') || 
+                      document.querySelector('.mdc-tab-scroller__scroll-content .mdc-tab[data-url]');
+
+    if (!activeTab) {
+        console.error("Error: Could not find the tab containing the PDF URL. Make sure you are viewing the exam answers.");
         return;
     }
-    
-    const fileName = fileNameEl.innerText.trim();
-    console.log(`Target file name extracted: ${fileName}`);
 
-    // 2. Find all tabs in the scroller
-    const tabs = document.querySelectorAll('.mdc-tab-scroller__scroll-content .mdc-tab[data-url]');
-    let targetUrl = null;
+    const targetUrl = activeTab.getAttribute('data-url');
 
-    for (const tab of tabs) {
-        const dataUrl = tab.getAttribute('data-url');
-        // Check if this tab's URL contains our target file name
-        if (dataUrl && dataUrl.includes(fileName)) {
-            targetUrl = dataUrl;
-            console.log("Match found! Extracted URL.");
-            break;
-        }
-    }
-
-    // Fallback: If for some reason the filename match fails, just grab the active tab's URL
-    if (!targetUrl) {
-        console.warn("Could not find a URL matching the file name. Trying fallback to the active tab...");
-        const activeTab = document.querySelector('.mdc-tab--active[data-url]');
-        if (activeTab) {
-            targetUrl = activeTab.getAttribute('data-url');
-        }
-    }
-
-    // 3. Trigger the download
     if (targetUrl) {
         console.log("Downloading from:", targetUrl);
-        // Create a temporary anchor element to trigger a clean download/new tab open
+        
+        // Try to extract a meaningful filename from the URL, fallback to default
+        let fileName = "exam_result.pdf";
+        try {
+            const urlObj = new URL(targetUrl);
+            if (urlObj.searchParams.has('filename')) {
+                // Gets '19309812.pdf' from '?filename=19309812.pdf'
+                fileName = urlObj.searchParams.get('filename'); 
+            } else {
+                // Fallback: extract the raw filename from the path (e.g. '20c779.pdf')
+                const pathSegments = urlObj.pathname.split('/');
+                const lastSegment = pathSegments[pathSegments.length - 1];
+                if (lastSegment && lastSegment.endsWith('.pdf')) {
+                    fileName = decodeURIComponent(lastSegment);
+                }
+            }
+        } catch (e) {
+            console.warn("Could not parse URL for filename. Using default name.");
+        }
+
+        // Create a temporary anchor element to trigger the download
         const a = document.createElement('a');
         a.href = targetUrl;
-        a.target = '_blank'; // Opens in a new tab, prompting the PDF download/viewer
-        a.download = fileName || "exam_result.pdf";
+        a.target = '_blank'; 
+        a.download = fileName;
         
         document.body.appendChild(a);
         a.click();
@@ -49,6 +46,6 @@
         
         console.log("Download triggered successfully!");
     } else {
-        console.error("Failed to extract the download URL. The page structure might have changed.");
+        console.error("Failed to extract the download URL from the tab.");
     }
 })();
