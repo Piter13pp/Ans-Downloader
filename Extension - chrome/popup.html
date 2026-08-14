@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>ANS Downloader</title>
+  <title>ANS Exam Downloader</title>
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -45,16 +45,24 @@
       font-size: 14px;
       font-weight: 600;
       cursor: pointer;
-      transition: background-color 0.2s ease;
+      transition: background-color 0.2s ease, transform 0.1s ease;
       box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     }
 
-    button:hover {
+    button:hover:not(:disabled) {
       background-color: #1d4ed8;
     }
 
-    button:active {
+    button:active:not(:disabled) {
       background-color: #1e40af;
+      transform: scale(0.98);
+    }
+
+    /* New styles for the disabled state */
+    button:disabled {
+      background-color: #9ca3af;
+      cursor: not-allowed;
+      box-shadow: none;
     }
 
     #status {
@@ -76,9 +84,10 @@
 <body>
   <div class="container">
     <h3>ANS Exam Downloader</h3>
-    <p>Open your exam view on ans.app, then click the button below to extract and download the PDF.</p>
+    <p>Open your exam view on ans.app by pressing "View answers", then click the button below to extract and download the PDF.</p>
     
-    <button id="downloadBtn">Download PDF</button>
+    <!-- Button starts disabled by default until we confirm the page -->
+    <button id="downloadBtn" disabled>Checking page...</button>
     
     <div id="status"></div>
   </div>

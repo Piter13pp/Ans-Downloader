@@ -1,8 +1,8 @@
 {
 "manifest_version": 3,
 "name": "ANS Exam Downloader",
-"version": "1.0",
-"description": "Easily download your exam result PDFs from ans.app.",
+"version": "2.0",
+"description": "Easily download your exam result in PDF from ans.app.",
 "permissions": [
 "activeTab",
 "scripting",

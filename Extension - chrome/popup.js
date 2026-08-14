@@ -1,7 +1,7 @@
 function runConsoleScript() {
     console.log("Starting ANS PDF extractor...");
 
-    // Find the active tab inside the scroller that has a data-url attribute
+    
     const activeTab = document.querySelector('.mdc-tab-scroller__scroll-content button[data-url]');
 
     if (!activeTab) {
