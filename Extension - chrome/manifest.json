@@ -13,6 +13,6 @@
 ],
 "action": {
 "default_popup": "popup.html",
-"default_title": "Download Exam PDF"
+"default_title": "Download your Exam answers in PDF"
 }
 }
