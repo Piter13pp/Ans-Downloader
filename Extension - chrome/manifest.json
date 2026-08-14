@@ -3,6 +3,7 @@
 "name": "ANS Exam Downloader",
 "version": "2.0",
 "description": "Easily download your exam result in PDF from ans.app.",
+"icons": {"128": "icon.png"},
 "permissions": [
 "activeTab",
 "scripting",
@@ -13,6 +14,7 @@
 ],
 "action": {
 "default_popup": "popup.html",
-"default_title": "Download your Exam answers in PDF"
+"default_title": "Download your Exam answers in PDF",
+"default_icon": {"128": "icon.png"}
 }
 }
